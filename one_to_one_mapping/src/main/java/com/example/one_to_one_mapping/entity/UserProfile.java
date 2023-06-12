@@ -8,17 +8,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
-@Getter
-//@JsonIgnoreProperties({"hibernateLazyInitializer"})
-
-@Table(name = "userProfile")
+@Getter@Table(name = "userProfile")
 public class UserProfile {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,14 +25,15 @@ public class UserProfile {
     @Column(name = "createAt")
     private Long createAt;
     @Column(name = "updateAt")
-    private Float updateAt;
+    private Long updateAt;
     @Column(name = "balance")
     private Long balance;
     @Column(name = "phoneNumber")
     private Long phoneNumber;
     @Column(name = "otpPin")
     private Long otpPin;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name = "transactionId",referencedColumnName = "id")
     private MiniStatements miniStatements;
+    
 }

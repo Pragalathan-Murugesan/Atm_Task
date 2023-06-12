@@ -2,11 +2,14 @@ package com.example.one_to_one_mapping.bglobal_exception;
 
 import com.example.one_to_one_mapping.api_Response.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.client.HttpClientErrorException;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 
 @RestControllerAdvice
@@ -33,11 +36,18 @@ public class GlobalException {
         apiResponse.setMessage("Unauthorized Access");
         return apiResponse;
     }
-//    @ExceptionHandler(NoSuchNoTFieldException.class)
-//    public ApiResponse handleNoSuchNoTFieldException(NoSuchNoTFieldException e){
-//        apiResponse.setStatus(HttpStatus.UNAUTHORIZED.value());
-//        apiResponse.setData(null);
-//        apiResponse.setMessage("Unauthorized Token Access");
-//        return apiResponse;
-//    }
+    @ExceptionHandler(HttpClientErrorException.Unauthorized.class)
+    public ApiResponse handleNoSuchNoTFieldException(HttpClientErrorException.Unauthorized e){
+        apiResponse.setStatus(HttpStatus.UNAUTHORIZED.value());
+        apiResponse.setData(null);
+        apiResponse.setMessage("Unauthorized Token Access");
+        return apiResponse;
+    }
+    @ExceptionHandler(ChangeSetPersister.NotFoundException.class)
+    public ApiResponse handleNotValidAuthArgumentsException(ChangeSetPersister.NotFoundException e){
+        apiResponse.setStatus(HttpStatus.UNAUTHORIZED.value());
+        apiResponse.setData(null);
+        apiResponse.setMessage("Not Valid");
+        return apiResponse;
+    }
 }

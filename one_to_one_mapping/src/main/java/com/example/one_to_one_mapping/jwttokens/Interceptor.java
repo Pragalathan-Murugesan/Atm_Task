@@ -22,17 +22,18 @@ public class Interceptor implements HandlerInterceptor {
             jwts = token.substring(7, token.length());
         }
         if (!(request.getRequestURI().contains("/admin/api/login") || request.getRequestURI().contains("/admin/api/add"))) {
-            Claims claims = null;
+
             try {
-                claims = generateToken.verifyToken(jwts);
+                Claims  claims = generateToken.verifyToken(jwts);
+
                 if (claims.getIssuer().equals("Admin")) {
-                    if (!request.getRequestURI().contains("/admin/api")) {
-                        throw new Exception();
+                    if (request.getRequestURI().contains("/admin/api")) {
+                        claims = generateToken.verifyToken(jwts);
                     }
 
                 } else if (claims.getIssuer().equals("User")) {
-                    if (!request.getRequestURI().contains("/users/api")) {
-                        throw new Exception();
+                    if (request.getRequestURI().contains("/users/api")) {
+                          claims = generateToken.verifyToken(jwts);
                     }
                 }
             } catch (NoSuchNoTFieldException e) {

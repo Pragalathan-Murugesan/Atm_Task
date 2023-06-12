@@ -10,7 +10,7 @@ public interface UserImple {
 
     ApiResponse login(AdminDto adminDto) throws Exception;
 
-    ApiResponse changePassword(Long phoneNumber) throws Exception;
+    ApiResponse changePassword(AdminDto adminDto) throws Exception;
 
     ApiResponse changePinNumber(Long otpPin,Long pinNumber) throws Exception;
 

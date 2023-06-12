@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -36,8 +38,6 @@ public class MiniStatements {
     private String bankName;
     @Column(name = "date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Long date;
-    @ManyToOne
-    @JoinColumn(name = "userId")
-    private UserProfile userProfile = new UserProfile();
+    private LocalDate date;
+
 }

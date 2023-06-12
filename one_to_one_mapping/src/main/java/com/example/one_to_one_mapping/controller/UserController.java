@@ -16,8 +16,8 @@ public class UserController {
     @Autowired
     private UserService userService;
     @PutMapping(value = "/send/otp")
-    public ApiResponse changePassword(@RequestParam Long phoneNumber) throws Exception {
-        return userService.changePassword(phoneNumber);
+    public ApiResponse changePassword(@RequestBody AdminDto adminDto) throws Exception {
+        return userService.changePassword(adminDto);
     }
     @PutMapping(value = "/change/pin")
     public ApiResponse changePinNumber(@RequestParam Long pinNumber, Long otpPin) throws Exception {
